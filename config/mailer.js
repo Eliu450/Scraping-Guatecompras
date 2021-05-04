@@ -1,15 +1,14 @@
 var nodemailer = require('nodemailer');
-//require('doteenv').config();
+require('dotenv/config');
 
 // create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
-    service: "Gmail",
     host: "smtp.gmail.com",
     port: 465,
     secure: true, // true for 465, false for other ports
     auth: {
-        user: 'eliusincalj@gmail.com', // generated ethereal user
-        pass: 'runnmbfbxqhhmujv', // generated ethereal password
+        user: process.env.EMAIL || 'eliusincalj@gmail.com', // generated ethereal user
+        pass: process.env.PASSWORD || 'runnmbfbxqhhmujv', // generated ethereal password
     },
 });
 
