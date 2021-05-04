@@ -1,18 +1,42 @@
 var nodemailer = require('nodemailer');
+//require('doteenv').config();
 
 // create reusable transporter object using the default SMTP transport
-async function main() {
-    let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true, // true for 465, false for other ports
-        auth: {
-            user: 'eliusincalj@gmail.com', // generated ethereal user
-            pass: 'runnmbfbxqhhmujv', // generated ethereal password
-        },
-    });
+let transporter = nodemailer.createTransport({
+    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+        user: 'eliusincalj@gmail.com', // generated ethereal user
+        pass: 'runnmbfbxqhhmujv', // generated ethereal password
+    },
+});
 
-    transporter.verify().then(()=>{
-        console.log("Ready for send emails");
-    });
+transporter.verify().then(()=>{
+    console.log("Ready for send emails");
+});
+
+function sendEmail (htmlToSend, excelouput){
+    try{
+        transporter.sendMail({
+            from: '"Concursos Guatecompras" <eliuzincal450@gmail.com>', // sender address
+            to: "esincal@dxlatam.com", // list of receivers
+            subject: "Concursos Guatecompras", // Subject line
+            attachments: [{'filename': excelouput, 'path': __dirname + '\\..\\files\\' +excelouput}],
+            html: htmlToSend, // html body
+          }, function(error, info){
+              if(error){
+                  console.log(error);
+              }else{
+                  console.log("Message sent succefull");
+              }
+          });
+    }catch(error){
+        console.log(error);
+    }
+}
+
+module.exports = {
+    "sendEmail" : sendEmail
 }

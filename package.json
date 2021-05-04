@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Eliu450/Scraping-Guatecompras#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^9.0.0",
     "handlebars": "^4.7.7",
     "is-json": "^2.0.1",
     "json2xls": "^0.1.2",
