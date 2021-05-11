@@ -1,0 +1,11 @@
+version: "3.1"
+services:
+    app:
+        build: .
+        container_name: guatecompras
+        environment:
+            - TZ=America/Guatemala
+        volumes:
+            - .:/usr/src
+            - /usr/src/node_modules
+        command: node index.js
