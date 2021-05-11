@@ -10,7 +10,7 @@ const transporter = require('./config/mailer');
 const cron = require('node-cron');
 
 
-cron.schedule('* * * * *', () => {
+cron.schedule('0 07 * * *', () => {
     (async()=> {
         const browser = await puppeteer.launch({headless:true});
         const page = await browser.newPage();
