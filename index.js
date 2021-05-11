@@ -1,3 +1,5 @@
+'use strict';
+
 const puppeteer = require('puppeteer');
 const isJSON = require('is-json');
 const json2xls = require('json2xls');
@@ -7,13 +9,15 @@ const handlebars = require('handlebars');
 const transporter = require('./config/mailer');
 const cron = require('node-cron');
 
-cron.schedule('0 07 * * *', () => {
+
+cron.schedule('* * * * *', () => {
     (async()=> {
         const browser = await puppeteer.launch({headless:true});
         const page = await browser.newPage();
         const dateouput = getDate();
     
-        const wordsSearch = ['oracle', 'mysql'];
+        let rawdata = fs.readFileSync('wordsSearch.json');
+        const wordsSearch = JSON.parse(rawdata);
     
         let concursos = [];
     
@@ -96,6 +100,8 @@ cron.schedule('0 07 * * *', () => {
             }else{
                 console.log("JSON Data is not valid")
             }
+        }else{
+            console.log("Sin concursos encontrados");
         }
     
         await browser.close();
