@@ -22,7 +22,7 @@ function sendEmail (htmlToSend, excelouput){
             from: '"Concursos Guatecompras" <eliuzincal450@gmail.com>', // sender address
             to: "esincal@dxlatam.com", // list of receivers
             subject: "Concursos Guatecompras", // Subject line
-            attachments: [{'filename': excelouput, 'path': __dirname + '\\..\\files\\' +excelouput}],
+            attachments: [{'filename': excelouput, 'path': __dirname + '//..//files//' +excelouput}],
             html: htmlToSend, // html body
           }, function(error, info){
               if(error){
