@@ -19,8 +19,8 @@ transporter.verify().then(()=>{
 function sendEmail (htmlToSend, excelouput){
     try{
         transporter.sendMail({
-            from: '"Concursos Guatecompras" <eliuzincal450@gmail.com>', // sender address
-            to: "esincal@dxlatam.com", // list of receivers
+            from: '"Concursos Guatecompras" <admon@dxlatam.com>', // sender address
+            to: process.env.EMAIL_SEND || "esincal@dxlatam.com", // list of receivers
             subject: "Concursos Guatecompras", // Subject line
             attachments: [{'filename': excelouput, 'path': __dirname + '//..//files//' +excelouput}],
             html: htmlToSend, // html body
