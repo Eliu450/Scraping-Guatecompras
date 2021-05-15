@@ -241,4 +241,3 @@ function getTemplate(concursos){
 module.exports = {
     "sendEmail" : sendEmail
 }
-
