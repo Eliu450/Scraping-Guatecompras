@@ -2,14 +2,13 @@
 
 const puppeteer = require("puppeteer");
 const isJSON = require("is-json");
-const json2xls = require("json2xls");
 const fs = require("fs");
 const { promisify } = require("util");
 const handlebars = require("handlebars");
 const transporter = require("./config/mailer");
 const cron = require("node-cron");
 
-cron.schedule("0 07 * * *", () => {
+cron.schedule("0 7 * *", () => {
   (async () => {
     const browser = await puppeteer.launch({
       headless: true,
@@ -23,12 +22,14 @@ cron.schedule("0 07 * * *", () => {
 
     let concursos = [];
 
-    page.setDefaultNavigationTimeout(0);
-
     for (let wordSearch of wordsSearch) {
+    page.setDefaultNavigationTimeout(0);
       await page.goto(
         "https://www.guatecompras.gt/concursos/busquedaTexto.aspx?t=" +
-          wordSearch
+          wordSearch,{
+            waitUntil:'load',
+            timeout:0
+          }
       );
 
       await page.waitForSelector(".TablaFilaMix1");
@@ -186,20 +187,9 @@ cron.schedule("0 07 * * *", () => {
       );
     }
 
-    var excelouput = "Concursos GuateCompras " + dateouput + ".xlsx";
-
     if (concursos.length > 0) {
       if (isJSON(JSON.stringify(concursos))) {
-        var xls = json2xls(concursos);
-        fs.writeFileSync("./files/" + excelouput, xls, "binary");
-
-        const readFile = promisify(fs.readFile);
-        let html = await readFile("./src/mail.html", "utf8");
-        let template = handlebars.compile(html);
-        let data = {};
-        let htmlToSend = template(data);
-
-        transporter.sendEmail(htmlToSend, excelouput);
+        transporter.sendEmail(concursos);
       } else {
         console.log("JSON Data is not valid");
       }
