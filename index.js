@@ -6,7 +6,7 @@ const fs = require("fs");
 const transporter = require("./config/mailer");
 const cron = require("node-cron");
 
-cron.schedule("0 10 * * *", () => {
+cron.schedule("0 07 * * *", () => {
   (async () => {
     const browser = await puppeteer.launch({
       headless: true,
@@ -89,6 +89,9 @@ cron.schedule("0 10 * * *", () => {
             let estatus = element.querySelector(
               'td div [title="Estatus del concurso"]'
             ).innerHTML;
+            let entidad_publica = element.querySelector(
+              'td div [title="Entidad que publica"]'
+            ).innerHTML;
             //Fecha convertida a formato: Y-m-d
             fecha_publicacion =
               fecha_publicacion.substring(8, 12) +
@@ -121,6 +124,7 @@ cron.schedule("0 10 * * *", () => {
                 fecha_limite_oferta,
                 titulo,
                 estatus,
+                entidad_publica
               });
             }
           }
@@ -143,6 +147,9 @@ cron.schedule("0 10 * * *", () => {
             let estatus = element.querySelector(
               'td div [title="Estatus del concurso"]'
             ).innerHTML;
+            let entidad_publica = element.querySelector(
+              'td div [title="Entidad que publica"]'
+            ).innerHTML;
             //Fecha convertida a formato: Y-m-d
             fecha_publicacion =
               fecha_publicacion.substring(8, 12) +
@@ -175,6 +182,7 @@ cron.schedule("0 10 * * *", () => {
                 fecha_limite_oferta,
                 titulo,
                 estatus,
+                entidad_publica,
               });
             }
           }
