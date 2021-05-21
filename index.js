@@ -3,12 +3,10 @@
 const puppeteer = require("puppeteer");
 const isJSON = require("is-json");
 const fs = require("fs");
-const { promisify } = require("util");
-const handlebars = require("handlebars");
 const transporter = require("./config/mailer");
 const cron = require("node-cron");
 
-cron.schedule("0 7 * *", () => {
+cron.schedule("0 10 * * *", () => {
   (async () => {
     const browser = await puppeteer.launch({
       headless: true,
